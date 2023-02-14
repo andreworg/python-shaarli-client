@@ -87,6 +87,16 @@ class ShaarliV1Client:
                 },
             },
         },
+        'get-link': {
+            'path': 'links',
+            'method': 'GET',
+            'help': "Get a single link by ID",
+            'resource': {
+                'help': "Link ID",
+                'type': check_positive_integer,
+            },
+            'params': {}
+        },
         'post-link': {
             'path': 'links',
             'method': 'POST',
@@ -296,6 +306,11 @@ class ShaarliV1Client:
         """Get a collection of links ordered by creation date"""
         self._check_endpoint_params('get-links', params)
         return self._request('GET', 'links', params)
+
+    def get_link(self, resource, params):
+        """Get a single link by id"""
+        self._check_endpoint_params('get-link', params)
+        return self._request('GET', 'links/%d' % resource, params)
 
     def post_link(self, params):
         """Create a new link or note"""
